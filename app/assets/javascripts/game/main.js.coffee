@@ -1,3 +1,5 @@
+#=require ./ui/dialogue-box
+
 DIRECTIONS =
   none: 0
   up: 1
@@ -91,7 +93,7 @@ window.Example = ->
     player.setImage player.standing[DIRECTIONS.down].next()
     jaws.preventDefaultKeys [ "w", "s", "a", "d", "space" ]
 
-    dialog = new DialogueBox('ELLIE GOULDING\n...')
+    dialog = new Game.UI.DialogueBox('ELLIE GOULDING\n...')
     
     getMousePos = (e) =>
       mx = e.pageX - jaws.canvas.offsetLeft
@@ -195,100 +197,7 @@ window.Example = ->
     player.x = kx
     player.y = ky
     jaws.context.drawImage(jaws.assets.get('overlay.png'), 0, 0)
-    dialog.draw(jaws.context)
+    dialog.draw({x: jaws.width * 0.5 - 160, y:jaws.height - 100 - 10, width: 320, height: 100}, jaws.context)
 
   this
-
-class DialogueBox
-  @ALIGN:
-    LEFT: 0
-    RIGHT: 1
-    CENTER: 2
-  constructor: (@text) ->
-    @border = jaws.assets.get('dialogborder.png')
-    @font = jaws.assets.get('fonts/museoslab500.font.png')
-    @firstChar = 32
-    @align = DialogueBox.ALIGN.LEFT
-    
-    this._loadMetrics(@font)
-    console.log(this)
-
-  widthForString: (s) ->
-    width = 0
-    for i in [0..s.length-1]
-      width += @widthMap[s.charCodeAt(i) - @firstChar] + 1
-    return width
-
-  draw: (ctx) ->
-    x = jaws.width * 0.5 - @border.width * 0.5
-    y = jaws.height - 10 - @border.height
-    ctx.drawImage(@border, x, y)
-    ox = Math.floor(x) + 10
-    oy = Math.floor(y) + 5
-    x = ox
-    y = oy
-
-    if @align is DialogueBox.ALIGN.RIGHT or @align is DialogueBox.ALIGN.CENTER
-      width = 0
-      for i in [0..@text.length-1]
-        c = @text.charCodeAt(i)
-        width += @widthMap[c - @firstChar] + 1
-      x -= if @align is DialogueBox.ALIGN.RIGHT then width * 0.5 else width
-
-    for i in [0..@text.length-1]
-      c = @text.charCodeAt(i)
-      if c is 10
-        x = ox
-        y += 20
-      else
-        x += this._drawChar(ctx, c - @firstChar, x, y) - 3
-
-  _drawChar: (ctx, c, targetX, targetY) ->
-    if c < 0 || c >= @indices.length
-      return 0
-    
-    scale = 1 #ig.system.scale
-
-    charX = @indices[c]
-    charY = 0;
-    charWidth = @widthMap[c]
-    charHeight = (@height-1)
-    
-    ctx.drawImage( 
-      @font,
-      charX, charY,
-      charWidth, charHeight,
-      targetX, targetY,
-      charWidth, charHeight
-    )
-    
-    return this.widthMap[c] + 1
-
-  _loadMetrics: (image) ->
-    @widthMap = []
-    @indices = []
-    @height = image.height - 1
-    
-    canvas = document.createElement('canvas')
-    canvas.width = image.width
-    canvas.height = image.height
-    ctx = canvas.getContext('2d')
-    ctx.drawImage( image, 0, 0 )
-    px = ctx.getImageData(0, image.height-1, image.width, 1)
-
-    currentChar = 0
-    currentWidth = 0
-    for x in [0..image.width-1]
-      index = x * 4 + 3
-      if px.data[index] != 0
-        currentWidth++
-      else if px.data[index] == 0 && currentWidth isnt 0
-        @widthMap.push(currentWidth)
-        @indices.push(x - currentWidth)
-        currentChar++
-        currentWidth = 0
-
-    @widthMap.push(currentWidth)
-    @indices.push(x - currentWidth)
-
 

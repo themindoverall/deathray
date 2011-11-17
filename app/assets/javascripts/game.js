@@ -1,5 +1,6 @@
 //= require jquery
 //= require jaws
+//= require ./events
 //= require_tree ./game/
 
 window.onload = function() {
@@ -12,7 +13,8 @@ window.onload = function() {
       "overlay.png",
       "dialogborder.png",
       "fonts/museoslab500.font.png",
-      "fonts/museoslab700.font.png"
+      "fonts/museoslab700.font.png",
+      "fonts/museoslab900.font.png"
   ]);
   jaws.start(Example);
 };
