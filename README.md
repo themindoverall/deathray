@@ -1,11 +1,11 @@
 TODO
 ====
 
-- Move Font to its own class/file
-- Move DialogueBox to its own file
-- Bring over system UIBox from Monstrago
-- Implement the different fonts/colors via a style system
-- Create a simple markup language that can do style changes, images.
+- Move Font to its own class/file (DONE)
+- Move DialogueBox to its own file (DONE)
+- Bring over system UIBox from Monstrago (DONE)
+- Implement the different fonts/colors via a style system (DONE)
+- Create a simple markup language that can do style changes, images. (DONE)
 - Do letter-by-letter text animation with speedup
 - Implement a dialogue tree system
  + Allow choices to be made in dialogue box

@@ -63,15 +63,29 @@ class Game.UI.DialogueBox extends Game.UI.Box
   _loadStyles: () ->
     @styles =
       default: new Game.UI.Font('fonts/museoslab500.font.png', '#fff', 1)
-      header: new Game.UI.Font('fonts/museoslab700.font.png', '#ddd', 2)
+      header: new Game.UI.Font('fonts/museoslab700.font.png', '#bbb', 2)
       em: new Game.UI.Font('fonts/museoslab900.font.png', '#fff', 2)
-      place: new Game.UI.Font('fonts/museoslab700.font.png', '#0f0', 2)
-      item: new Game.UI.Font('fonts/museoslab700.font.png', '#f00', 2)
-      person: new Game.UI.Font('fonts/museoslab700.font.png', '#f0f', 2)
+      place: new Game.UI.Font('fonts/museoslab700.font.png', '#94ff90', 2)
+      item: new Game.UI.Font('fonts/museoslab700.font.png', '#81cffa', 2)
+      person: new Game.UI.Font('fonts/museoslab700.font.png', '#bf88ff', 2)
+      idea: new Game.UI.Font('fonts/museoslab700.font.png', '#fff38b', 2)
+      enemy: new Game.UI.Font('fonts/museoslab700.font.png', '#ee878c', 2)
+      event: new Game.UI.Font('fonts/museoslab700.font.png', '#ffa957', 2)
+
   _compileText: (text) ->
     result = []
-    # read each char
-    # on \, skip next character
-    # on [ read a change onto the stack
-    # on [/s] pop it off the stack
-    return [{style: 'header'}, 'ELLIE GOULDING\n', {pop:true}, 'Why don\'t you be the writer and ', {style: 'em'}, 'decide', {pop: true}, ' the words I say?  Cuz I\'d rather ',{style: 'em'},'pretend',{pop:true},' I\'ll still be there in the end.']
+    $tree = $.parseXML('<text>' + text + '</text>')
+    parsify = (nodes) ->
+      $.each(nodes, (idx, ele) ->
+        if ele.tagName?
+          $node = $(this)
+          if ele.tagName is 's'
+            result.push({style: $node.attr('class')})
+            parsify(ele.childNodes)
+            result.push({pop:true})
+        else
+          result.push(ele.data)
+      )
+      1
+    parsify($tree.childNodes[0].childNodes)
+    return result

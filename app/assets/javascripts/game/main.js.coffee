@@ -93,7 +93,7 @@ window.Example = ->
     player.setImage player.standing[DIRECTIONS.down].next()
     jaws.preventDefaultKeys [ "w", "s", "a", "d", "space" ]
 
-    dialog = new Game.UI.DialogueBox('ELLIE GOULDING\n...')
+    dialog = new Game.UI.DialogueBox('<s class="header">SAGELY OWL\n</s>Who is our <s class="idea">champion</s> who will face down the <s class="enemy">Evil Lord Anthem</s>? <i src="icons/a.png">(A)</i>')
     
     getMousePos = (e) =>
       mx = e.pageX - jaws.canvas.offsetLeft
