@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>deathray</title>
+  <%= javascript_include_tag "game" %>
+  <%= stylesheet_link_tag    "game" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<canvas width="480" height="320"></canvas>
+  FPS: <span id="fps"></span>. Move with arrow keys.
+  
+  <div id="info">
+    <h1>TileMap and ViewPort optimizations</h1>
+    Here we have a Huge game world consisting of 700 x 700 tiles ( ~half a million sprites ).
+    We don't want to draw them all so we use viewport.drawTileMap( tile_map )
+  </div>
+  
+  <h3>jaws log</h3>
+  <div id="jaws-log"></div></body>
+</html>
+

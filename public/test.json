@@ -1,0 +1,44 @@
+{
+  "name": "test",
+  "type": "seq",
+  "sequence": [
+    {
+      "type": "wait",
+      "time": 3000
+    },
+    {
+      "type": "text",
+      "body": "Hello world!"
+    },
+    {
+      "type": "ll",
+      "steps": [
+        {
+          "type": "seq",
+          "sequence": [
+            {
+              "type": "wait",
+              "time": 3000
+            },
+            {
+              "type": "text",
+              "body": "Midway"
+            },
+            {
+              "type": "wait",
+              "time": 2000
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "body": "Immediate...!"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "body": "the end of the world!"
+    }
+  ]
+}

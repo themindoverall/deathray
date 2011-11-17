@@ -1,0 +1,14 @@
+//= require jaws/core
+//= require jaws/sprite
+//= require jaws/input
+//= require jaws/assets
+//= require jaws/game_loop
+//= require jaws/rect
+//= require jaws/sprite_list
+//= require jaws/sprite_sheet
+//= require jaws/parallax
+//= require jaws/animation
+//= require jaws/tile_map
+//= require jaws/viewport
+//= require jaws/collision_detection
+//= require jaws/gfx
